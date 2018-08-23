@@ -24,7 +24,7 @@ export default class Editor extends React.Component {
             maxHeight: '86vh',
             overflowY: 'scroll',
             paddingLeft: '8px',
-            minWidth:'100%',
+            minWidth: '100%',
             marginLeft: '1%'
         }
         const styleMax = {

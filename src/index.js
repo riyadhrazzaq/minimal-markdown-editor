@@ -4,7 +4,7 @@ import Editor from './editor.jsx';
 import Preview from './preview.jsx';
 import Navbar from './navbar.jsx';
 import './index.css';
-import {Modal, Grid } from 'semantic-ui-react'
+import {Modal, Grid,Button,Icon } from 'semantic-ui-react'
 
 
 class App extends React.Component {
@@ -13,11 +13,13 @@ class App extends React.Component {
         this.state = {
             input: '',
             hint: false,
-            about:false
+            about:false,
+            maximize:false
         }
         this.onChange = this.onChange.bind(this);
         this.handleHint = this.handleHint.bind(this);
         this.handleAbout = this.handleAbout.bind(this);
+        this.handleEditor = this.handleEditor.bind(this);
     }
     onChange(e) {
         this.setState({
@@ -34,7 +36,27 @@ class App extends React.Component {
             about: !this.state.about
         })
     }
+    handleEditor() {
+        this.setState({
+            maximize: !this.state.maximize
+        })
+    }
     render() {
+        const fullBtn={
+            color:'grey',
+            cursor:'pointer',
+            display:'inline',
+            marginLeft:'88%'
+        }
+        const style = {
+            border: '1px solid rgba(0,0,0,0.10)',
+            minHeight: '86vh',
+            maxHeight: '86vh',
+            overflowY: 'scroll',
+            paddingLeft: '8px',
+            minWidth: '100%',
+            marginLeft: '1%'
+        }
         return (
             <div>
                 <Navbar onClick={this.handleHint} onClickAbout={this.handleAbout} />
@@ -42,7 +64,8 @@ class App extends React.Component {
                 <Grid columns={2} divided>
                     <Grid.Row>
                         <Grid.Column>
-                        <h5 style={{marginLeft:'1%'}}>Editor</h5>
+                            <h5 style={{marginLeft:'1%',display:'inline-block'}}>Editor</h5>
+                            <p onClick={this.handleEditor} style={fullBtn}><Icon name="expand" size="large"/></p>
                             <Editor placeholder={this.state.input} onChange={this.onChange} input={this.state.input} />
                         </Grid.Column>
                         <Grid.Column>
@@ -67,6 +90,12 @@ class App extends React.Component {
                             Source: <a href="https://github.com/riyadhrazzaq/markdown-syntax" target="_blank">Github</a><br></br>
                             License: MIT
                         </Modal.Description>
+                    </Modal.Content>
+                </Modal>
+                <Modal open={this.state.maximize}>
+                    <Modal.Content>
+                        <Button style={{float:'right',paddingRight:'12px'}} onClick={this.handleEditor}><Icon name="close"/></Button>
+                        <textarea style={style} id="editor" onChange={this.onChange} value={this.state.input}></textarea>
                     </Modal.Content>
                 </Modal>
             </div>
