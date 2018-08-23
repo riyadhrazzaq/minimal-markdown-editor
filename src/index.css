@@ -1,0 +1,8 @@
+pre,code{
+    background-color: #2a2f30;
+    color: white;
+}
+#closeHint{
+    cursor: pointer;
+    color: red;
+}
